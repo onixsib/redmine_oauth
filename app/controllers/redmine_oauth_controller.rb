@@ -52,7 +52,7 @@ class RedmineOauthController < AccountController
       redirect_to oauth_client.auth_code.authorize_url(
         redirect_uri: oauth_callback_url,
         state: oauth_csrf_token,
-        scope: 'openid profile email'
+        scope: 'openid profile email offline_access'
       )
     else
       flash['error'] = l(:oauth_invalid_provider)
