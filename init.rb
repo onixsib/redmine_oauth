@@ -18,23 +18,23 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-require "redmine"
-require File.expand_path("lib/redmine_oauth/hooks", __dir__)
+require 'redmine'
+require File.expand_path('lib/redmine_oauth/hooks', __dir__)
 
 Redmine::Plugin.register :redmine_oauth do
-  name "Redmine OAuth plugin"
-  author "nbm a@onixsib.ru"
-  description "Redmine OAuth plugin with Keycloak"
-  version "2.1.2"
-  url "https://github.com/onixsib/redmine_oauth"
-  author_url "https://github.com/onixsib/redmine_oauth/graphs/contributors"
+  name 'Redmine OAuth plugin'
+  author 'nbm a@onixsib.ru'
+  description 'Redmine OAuth plugin with Keycloak'
+  version '2.1.2'
+  url 'https://github.com/onixsib/redmine_oauth'
+  author_url 'https://github.com/onixsib/redmine_oauth/graphs/contributors'
   settings default: {
-    oauth_name: "none",
-    site: "",
-    client_id: "",
-    client_secret: "",
-    tenant_id: "",
-    button_color: "#ffbe6f",
-    button_icon: "fas fa-address-card",
-  }, partial: "settings/oauth_settings"
+    oauth_name: 'none',
+    site: '',
+    client_id: '',
+    client_secret: '',
+    tenant_id: '',
+    button_color: '#ffbe6f',
+    button_icon: 'fas fa-address-card'
+  }, partial: 'settings/oauth_settings'
 end
