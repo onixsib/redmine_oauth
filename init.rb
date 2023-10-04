@@ -22,12 +22,12 @@ require 'redmine'
 require File.expand_path('lib/redmine_oauth/hooks', __dir__)
 
 Redmine::Plugin.register :redmine_oauth do
-  name 'Redmine OAuth plugin'
-  author 'Karel Pičman'
-  description 'Redmine OAuth plugin'
-  version '2.1.1'
-  url 'https://github.com/kontron/redmine_oauth'
-  author_url 'https://github.com/kontron/redmine_oauth/graphs/contributors'
+name "Redmine OAuth plugin"
+author "nbm a@onixsib.ru"
+description "Redmine OAuth plugin"
+version "2.1.2"
+url "https://github.com/onixsib/redmine_oauth"
+author_url "https://github.com/onixsib/redmine_oauth/graphs/contributors"
 
   settings default: {
     oauth_name: 'none',
