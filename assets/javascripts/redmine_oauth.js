@@ -67,6 +67,11 @@ function oauth_settings_visibility()
             div_oauth_options.find('#oauth_options_tenant').show();
             tenant_id.val("default");
             break;
+        case 'Keycloak':
+            div_oauth_options.show();
+            div_oauth_options.find('#oauth_options_tenant').show();
+            tenant_id.val("default");
+            break;
         case 'GitLab':
             div_oauth_options.show();
             div_oauth_options.find('#oauth_options_tenant').hide();

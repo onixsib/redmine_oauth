@@ -5,20 +5,22 @@
 
 This plugin is used to authenticate in Redmine through an OAuth provider.
 
-The user is identified by the email registered by the OAuth provider. The email must correspond with an email registered 
-in Redmine. If such an email is not found, the user is ofered with registration to Redmine depending on the Redmine's 
+The user is identified by the email registered by the OAuth provider. The email must correspond with an email registered
+in Redmine. If such an email is not found, the user is ofered with registration to Redmine depending on the Redmine's
 setting **Self-registration**.
 
 Inspired by Gucin's plugin https://github.com/Gucin/redmine_omniauth_azure.
+Inspired by kontron plugin <https://github.com/kontron/redmine_oauth/>.
 
 Supported OAuth providers:
 * Azure AD (https://azure.microsoft.com)
 * Otka (https://www.okta.com)
 * GitLab (https://about.gitlab.com)
+* Keycloak (<https://www.keycloak.org>)
 
 ### Installation:
 
-1. Enter the plugins folder 
+1. Enter the plugins folder
 2. Clone the repository
 3. Set user permissions
 4. Install required gems
@@ -26,7 +28,7 @@ Supported OAuth providers:
 
 E.g. Linux + Apache web server
 
-```shell 
+```shell
 cd plugins
 git clone https://github.com/kontron/redmine_oauth.git
 chown -R www-data:www-data redmine_oauth
@@ -52,7 +54,7 @@ corresponding line in Redmine's Gemfile and then run `bundle install` again.
 
 ### Registration
 
-Register your Redmine instance as an application by your OAuth provider. Follow the instructions given on their web 
+Register your Redmine instance as an application by your OAuth provider. Follow the instructions given on their web
 sites. As the redirect URI add https://yourdomain/oauth2callback.
 
 ### Configuration
@@ -83,7 +85,7 @@ Available options:
 * grant_type - Grant type ['client_credentials']
 * ssl - use SSL [Yes]
 * starttls - Start TLS [No]
-* username - Login     
+* username - Login
 * folder - Mail folder to scan [INBOX]
 * move_on_success - Where to move successfully processed messages
 * move_on_failure - Where to move unsuccessfully processed messages

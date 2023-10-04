@@ -48,6 +48,12 @@ class RedmineOauthController < AccountController
         state: oauth_csrf_token,
         scope: 'openid profile email'
       )
+    when 'Keycloak'
+      redirect_to oauth_client.auth_code.authorize_url(
+        redirect_uri: oauth_callback_url,
+        state: oauth_csrf_token,
+        scope: 'openid profile email'
+      )
     else
       flash['error'] = l(:oauth_invalid_provider)
       redirect_to signin_path
@@ -76,6 +82,15 @@ class RedmineOauthController < AccountController
       token = oauth_client.auth_code.get_token(params['code'], redirect_uri: oauth_callback_url)
       userinfo_response = token.get(
         "/oauth2/#{Setting.plugin_redmine_oauth[:tenant_id]}/v1/userinfo",
+        headers: { 'Accept' => 'application/json' }
+      )
+      user_info = JSON.parse(userinfo_response.body)
+      user_info['login'] = user_info['preferred_username']
+      email = user_info['email']
+    when 'Keycloak'
+      token = oauth_client.auth_code.get_token(params['code'], redirect_uri: oauth_callback_url)
+      userinfo_response = token.get(
+        "/realms/#{Setting.plugin_redmine_oauth[:tenant_id]}/protocol/openid-connect/userinfo",
         headers: { 'Accept' => 'application/json' }
       )
       user_info = JSON.parse(userinfo_response.body)
@@ -174,6 +189,14 @@ class RedmineOauthController < AccountController
           site: site,
           authorize_url: "/oauth2/#{Setting.plugin_redmine_oauth[:tenant_id]}/v1/authorize",
           token_url: "/oauth2/#{Setting.plugin_redmine_oauth[:tenant_id]}/v1/token"
+        )
+      when 'Keycloak'
+        OAuth2::Client.new(
+          Setting.plugin_redmine_oauth[:client_id],
+          Setting.plugin_redmine_oauth[:client_secret],
+          site: site,
+          authorize_url: "/realms/#{Setting.plugin_redmine_oauth[:tenant_id]}/protocol/openid-connect/auth",
+          token_url: "/realms/#{Setting.plugin_redmine_oauth[:tenant_id]}/protocol/openid-connect/token"
         )
       else
         raise StandardError, l(:oauth_invalid_provider)

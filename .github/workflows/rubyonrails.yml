@@ -37,10 +37,10 @@ jobs:
           svn export https://svn.redmine.org/redmine/branches/5.0-stable/ /opt/redmine
           sed -i "s/gem 'net-imap'/#gem 'net-imap'/" /opt/redmine/Gemfile
       - name: Checkout code
-        uses: actions/checkout@v3        
+        uses: actions/checkout@v3
       - name: Link the plugin
         # Link the plugin to the redmine folder
-        run: | 
+        run: |
           ln -s $(pwd) /opt/redmine/plugins/redmine_oauth
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@0a29871fe2b0200a17a4497bae54fe5df0d973aa # v1.115.3
@@ -56,21 +56,21 @@ jobs:
       - name: Install Redmine
         # Install Redmine
         run: |
-          cd /opt/redmine                    
+          cd /opt/redmine
           bundle config set --local without 'rmagick development'
           bundle install
           bundle exec rake generate_secret_token
-          bundle exec rake db:migrate          
+          bundle exec rake db:migrate
           bundle exec rake redmine:load_default_data
         env:
           REDMINE_LANG: en
       - name: Standard tests
         # Run the tests
         run: |
-          cd /opt/redmine          
-          bundle exec rake redmine:plugins:test:functionals                    
+          cd /opt/redmine
+          bundle exec rake redmine:plugins:test:functionals
       - name: Rubocop
         # Run the Rubocop tests
         run: |
-          cd /opt/redmine                    
-          bundle exec rubocop -c plugins/redmine_oauth/.rubocop.yml plugins/redmine_oauth/          
+          cd /opt/redmine
+          bundle exec rubocop -c plugins/redmine_oauth/.rubocop.yml plugins/redmine_oauth/
