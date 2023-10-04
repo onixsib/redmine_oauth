@@ -50,3 +50,6 @@ Metrics/PerceivedComplexity:
 
 Metrics/CyclomaticComplexity:
   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
